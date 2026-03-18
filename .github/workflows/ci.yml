@@ -171,10 +171,14 @@ jobs:
           cp surqlize-*.tgz /tmp/smoke-test/
           cd /tmp/smoke-test
           npm init -y
-          npm install surqlize-*.tgz surrealdb
+          npm install surqlize-*.tgz surrealdb typescript
 
       - name: Copy smoke test scripts
         run: cp tests/smoke/* /tmp/smoke-test/
+
+      - name: Smoke test - TypeScript declarations
+        working-directory: /tmp/smoke-test
+        run: npx tsc --noEmit --skipLibCheck --module nodenext --moduleResolution nodenext type-check.mts
 
       - name: Smoke test - Node.js ESM
         run: node /tmp/smoke-test/node-esm.mjs

@@ -995,13 +995,13 @@ const query = db.select("user").return((user) => ({
 type QueryResult = t.infer<typeof query>;
 // QueryResult: Array<{ name: string; age: number }>
 
-// Infer table type
+// Infer table row type
 const userTable = table("user", {
   name: t.string(),
   age: t.number(),
 });
 
-type User = t.infer<typeof userTable>;
+type User = (typeof userTable)["type"];
 // User: { id: RecordId<"user">; name: string; age: number }
 
 // Infer individual type definitions
