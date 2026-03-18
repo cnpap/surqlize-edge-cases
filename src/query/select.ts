@@ -279,8 +279,8 @@ export class SelectQuery<
 		});
 
 		const thing = this.displaySubject(ctx);
-		const start = this._start && ctx.var(this._start);
-		const limit = this._limit && ctx.var(this._limit);
+		const start = this._start !== undefined ? ctx.var(this._start) : undefined;
+		const limit = this._limit !== undefined ? ctx.var(this._limit) : undefined;
 
 		const predicates = this._entry
 			? /* surql */ `VALUE ${this._entry[__display](ctx)}`

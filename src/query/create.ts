@@ -1,4 +1,4 @@
-import { RecordId, Table } from "surrealdb";
+import { RecordId, Table, type RecordIdValue } from "surrealdb";
 import type { Orm } from "../schema/orm.ts";
 import {
 	type AbstractType,
@@ -57,12 +57,12 @@ export class CreateQuery<
 	_modificationMode?: ModificationMode;
 	private _return?: "none" | "before" | "after" | "diff" | Workable<C>;
 	private _timeout?: string;
-	private _id?: string;
+	private _id?: RecordIdValue;
 
 	constructor(
 		orm: O,
 		readonly tb: T,
-		id?: string,
+		id?: RecordIdValue,
 	) {
 		super();
 		this[__ctx] = {

@@ -57,6 +57,16 @@ describe("SELECT queries", () => {
 		expect(result).toContain("LIMIT");
 	});
 
+	test("generates SELECT with LIMIT 0", () => {
+		const query = db.select("user").limit(0);
+		const ctx = displayContext();
+		const result = query[__display](ctx);
+
+		expect(result).toContain("SELECT * FROM");
+		expect(result).toContain("LIMIT");
+		expect(Object.values(ctx.variables)).toContainEqual(0);
+	});
+
 	test("generates SELECT with START", () => {
 		const query = db.select("user").start(5);
 		const ctx = displayContext();
@@ -64,6 +74,16 @@ describe("SELECT queries", () => {
 
 		expect(result).toContain("SELECT * FROM");
 		expect(result).toContain("START");
+	});
+
+	test("generates SELECT with START 0", () => {
+		const query = db.select("user").start(0);
+		const ctx = displayContext();
+		const result = query[__display](ctx);
+
+		expect(result).toContain("SELECT * FROM");
+		expect(result).toContain("START");
+		expect(Object.values(ctx.variables)).toContainEqual(0);
 	});
 
 	test("generates SELECT with START and LIMIT", () => {
